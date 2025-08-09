@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PliPli'sAnnoncement - Centre d'Annonces Officielles</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+```
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background-color: #fafbfc;
+        color: #1a1a1a;
+        line-height: 1.6;
+    }
+
+    .header {
+        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        padding: 60px 0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        opacity: 0.3;
+    }
+
+    .header-content {
+        position: relative;
+        z-index: 2;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .header h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 12px;
+        letter-spacing: -0.5px;
+    }
+
+    .header p {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.8);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: -40px auto 0;
+        padding: 0 20px 60px;
+        position: relative;
+        z-index: 3;
+    }
+
+    .announcements-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 24px;
+    }
+
+    .announcement-card {
+        background: white;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        transition: all 0.2s ease;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .announcement-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        border-color: #cbd5e1;
+    }
+
+    .card-header {
+        padding: 24px 24px 20px;
+        border-bottom: 1px solid #f1f5f9;
+        position: relative;
+    }
+
+    .project-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+    }
+
+    .project-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .project-logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: white;
+        letter-spacing: -0.5px;
+    }
+
+    .fashionflow-logo { background: linear-gradient(135deg, #f59e0b, #d97706); }
+    .universblox-logo { background: linear-gradient(135deg, #10b981, #059669); }
+    .pliplisport-logo { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+    .universnite-logo { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+
+    .project-name {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #0f172a;
+    }
+
+    .status-badge {
+        padding: 4px 10px;
+        border-radius: 16px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .status-active {
+        background: #dcfce7;
+        color: #166534;
+        border: 1px solid #bbf7d0;
+    }
+
+    .status-paused {
+        background: #fef3c7;
+        color: #92400e;
+        border: 1px solid #fde68a;
+    }
+
+    .status-coming {
+        background: #dbeafe;
+        color: #1e40af;
+        border: 1px solid #bfdbfe;
+    }
+
+    .project-category {
+        font-size: 0.875rem;
+        color: #64748b;
+        margin-top: 4px;
+    }
+
+    .card-content {
+        padding: 24px;
+    }
+
+    .announcement-text {
+        color: #374151;
+        line-height: 1.7;
+        font-size: 0.95rem;
+    }
+
+    .announcement-text p {
+        margin-bottom: 16px;
+    }
+
+    .announcement-text p:last-child {
+        margin-bottom: 0;
+    }
+
+    .highlight {
+        font-weight: 600;
+        color: #1e293b;
+    }
+
+    .card-footer {
+        padding: 20px 24px 24px;
+        border-top: 1px solid #f1f5f9;
+        background: #fafbfc;
+    }
+
+    .action-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        background: #1e293b;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: 500;
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+        border: none;
+        cursor: pointer;
+    }
+
+    .action-button:hover:not(.disabled) {
+        background: #334155;
+        transform: translateY(-1px);
+    }
+
+    .action-button.disabled {
+        background: #94a3b8;
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+
+    .action-button.whatsapp:hover:not(.disabled) { background: #25d366; }
+    .action-button.discord:hover:not(.disabled) { background: #5865f2; }
+    .action-button.roblox:hover:not(.disabled) { background: #00a2ff; }
+
+    .stats-section {
+        margin-top: 48px;
+        background: white;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        padding: 32px;
+    }
+
+    .stats-header {
+        text-align: center;
+        margin-bottom: 32px;
+    }
+
+    .stats-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #0f172a;
+        margin-bottom: 8px;
+    }
+
+    .stats-subtitle {
+        color: #64748b;
+        font-size: 0.95rem;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 24px;
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 20px;
+        border-radius: 8px;
+        background: #f8fafc;
+        border: 1px solid #f1f5f9;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1e293b;
+        display: block;
+        margin-bottom: 4px;
+    }
+
+    .stat-label {
+        font-size: 0.875rem;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 500;
+    }
+
+    .date-updated {
+        text-align: center;
+        margin-top: 32px;
+        padding-top: 24px;
+        border-top: 1px solid #e2e8f0;
+        color: #64748b;
+        font-size: 0.875rem;
+    }
+
+    @media (max-width: 768px) {
+        .header h1 {
+            font-size: 2rem;
+        }
+        
+        .header p {
+            font-size: 1rem;
+        }
+        
+        .announcements-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .card-header,
+        .card-content,
+        .card-footer {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        
+        .stats-section {
+            padding: 24px 20px;
+        }
+    }
+</style>
+```
+
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1>Centre d'Annonces Officielles</h1>
+            <p>Suivez les dernières actualités et développements de tous nos projets en cours</p>
+        </div>
+    </header>
+
+```
+<div class="container">
+    <div class="announcements-grid">
+        <!-- FashionFlow -->
+        <article class="announcement-card">
+            <div class="card-header">
+                <div class="project-info">
+                    <div class="project-title">
+                        <div class="project-logo fashionflow-logo">FF</div>
+                        <div>
+                            <h2 class="project-name">FashionFlow</h2>
+                            <p class="project-category">Application E-commerce</p>
+                        </div>
+                    </div>
+                    <span class="status-badge status-active">Actif</span>
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="announcement-text">
+                    <p><span class="highlight">Évolution majeure du projet FashionFlow</span></p>
+                    
+                    <p>Suite à l'achèvement du site internet, nous entamons la phase de développement de l'application mobile FashionFlow en version BÊTA.</p>
+                    
+                    <p><span class="highlight">Objectif :</span> Permettre à tous les utilisateurs de tester l'intégralité des fonctionnalités directement depuis leur appareil mobile ou tablette.</p>
+                    
+                    <p><span class="highlight">Note importante :</span> Cette version BÊTA ne comprendra pas encore le système de transaction, mais toutes les autres fonctionnalités seront disponibles pour une expérience complète.</p>
+                    
+                    <p>Le lancement est prévu dans les prochaines semaines.</p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="https://chat.whatsapp.com/HDXeLQPQmgGG5axKyA3hFf" class="action-button whatsapp" target="_blank">
+                    <span>💬</span> Rejoindre la communauté
+                </a>
+            </div>
+        </article>
+
+        <!-- UniversBlox -->
+        <article class="announcement-card">
+            <div class="card-header">
+                <div class="project-info">
+                    <div class="project-title">
+                        <div class="project-logo universblox-logo">UB</div>
+                        <div>
+                            <h2 class="project-name">UniversBlox</h2>
+                            <p class="project-category">Jeu Roblox</p>
+                        </div>
+                    </div>
+                    <span class="status-badge status-paused">En pause</span>
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="announcement-text">
+                    <p><span class="highlight">Mise en pause temporaire du développement</span></p>
+                    
+                    <p>Afin d'optimiser nos ressources et de nous concentrer sur le développement de FashionFlow, UniversNite et d'autres projets stratégiques, nous avons pris la décision de suspendre temporairement le développement d'UniversBlox.</p>
+                    
+                    <p>Cette pause nous permettra de revenir avec une version considérablement enrichie et plus aboutie du projet.</p>
+                    
+                    <p><span class="highlight">Reprise prévue :</span> Le développement reprendra dans les prochains mois avec de nouvelles fonctionnalités et améliorations.</p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="https://www.roblox.com/share/g/382916130" class="action-button roblox" target="_blank">
+                    <span>🎮</span> Rejoindre le groupe
+                </a>
+            </div>
+        </article>
+
+        <!-- PliPli'Sport -->
+        <article class="announcement-card">
+            <div class="card-header">
+                <div class="project-info">
+                    <div class="project-title">
+                        <div class="project-logo pliplisport-logo">PS</div>
+                        <div>
+                            <h2 class="project-name">PliPli'Sport</h2>
+                            <p class="project-category">E-sport & Merchandising</p>
+                        </div>
+                    </div>
+                    <span class="status-badge status-active">Actif</span>
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="announcement-text">
+                    <p><span class="highlight">Lancement de notre marque officielle</span></p>
+                    
+                    <p>PliPli'Sport s'apprête à lancer sa propre ligne de vêtements et produits cosmétiques, marquant une étape importante dans le développement de notre écosystème.</p>
+                    
+                    <p><span class="highlight">Développements futurs :</span> Nous prévoyons également de créer des collections exclusives inspirées de nos joueurs E-sport professionnels, permettant aux fans de représenter leurs équipes favorites.</p>
+                    
+                    <p>Cette initiative s'inscrit dans notre stratégie de développement de la marque PliPli'Sport et de renforcement de notre communauté.</p>
+                    
+                    <p><span class="highlight">Première collection :</span> Le lancement est imminent.</p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="https://discord.gg/Yq5U6sv38R" class="action-button discord" target="_blank">
+                    <span>💬</span> Rejoindre Discord
+                </a>
+            </div>
+        </article>
+
+        <!-- UniversNite -->
+        <article class="announcement-card">
+            <div class="card-header">
+                <div class="project-info">
+                    <div class="project-title">
+                        <div class="project-logo universnite-logo">UN</div>
+                        <div>
+                            <h2 class="project-name">UniversNite</h2>
+                            <p class="project-category">Projet en développement</p>
+                        </div>
+                    </div>
+                    <span class="status-badge status-coming">À venir</span>
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="announcement-text">
+                    <p><span class="highlight">Projet en phase de conception</span></p>
+                    
+                    <p>UniversNite est actuellement en cours de développement dans nos laboratoires. Ce nouveau projet ambitieux promet d'apporter des innovations significatives à notre portefeuille.</p>
+                    
+                    <p>Les détails concernant ce projet seront dévoilés progressivement au fur et à mesure de l'avancement du développement.</p>
+                    
+                    <p><span class="highlight">Annonce officielle :</span> Prévue dans les prochaines semaines.</p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="action-button disabled">
+                    <span>⏳</span> Informations à venir
+                </button>
+            </div>
+        </article>
+    </div>
+
+    <section class="stats-section">
+        <div class="stats-header">
+            <h3 class="stats-title">Vue d'ensemble des projets</h3>
+            <p class="stats-subtitle">Statistiques actuelles de notre portefeuille de projets</p>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-number">4</span>
+                <span class="stat-label">Projets totaux</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">2</span>
+                <span class="stat-label">En développement actif</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">1</span>
+                <span class="stat-label">En pause temporaire</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">1</span>
+                <span class="stat-label">En conception</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="date-updated">
+        <p>Dernière mise à jour : Août 2025</p>
+    </div>
+</div>
+```
+
+</body>
+</html>
